@@ -2,14 +2,14 @@
 
 {% load widget_tweaks %}
 
-{% block title %}Homepage{% endblock title %}
+{% block title %}Create users{% endblock title %}
 
 {% block content %}
 <h1>Django project running.</h1>
 
 <div class="row">
   <div class="col-md-4 offset-md-4">
-    <form method="post" id="id_contact_form" data-post-url="{% url 'home' %}">
+    <form method="post" id="id_contact_form" data-post-url="{% url 'users.create' %}">
         {% csrf_token %}
 
         <div class="form-group">

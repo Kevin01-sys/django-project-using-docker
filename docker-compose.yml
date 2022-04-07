@@ -3,7 +3,8 @@ services:
   db:
     image: postgres:10.1
     volumes:
-      - .:/tmp/data/
+      - tmp-data:/tmp/data/
+      - postgresql-data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
   migration:
@@ -25,6 +26,11 @@ services:
     depends_on:
       - migration
       - db
+volumes:
+    tmp-data:
+        driver: local
+    postgresql-data:
+        driver: local
 
 
 

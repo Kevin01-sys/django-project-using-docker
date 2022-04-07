@@ -16,9 +16,10 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from app.views import HomeView
+from app.views import CreateUsers
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$',HomeView.as_view(),name='home',),
+    #url(r'^$',HomeView.as_view(),name='home',),
+    url(r'^users/create/',CreateUsers.as_view(),name='users.create',),
 ]

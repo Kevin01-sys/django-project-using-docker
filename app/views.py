@@ -13,7 +13,7 @@ from django.http import JsonResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from app.forms import ContactForm
 
-class HomeView(TemplateView):
+class CreateUsers(TemplateView):
     template_name = 'manta/home.html'
 
     """as its name suggests, obtains the data from the context. 
