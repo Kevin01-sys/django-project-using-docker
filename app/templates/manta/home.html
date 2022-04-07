@@ -39,19 +39,15 @@
 <script>
 $(function() {
     'use strict';
-    //var texto;
-    //texto = prompt("Ingresa que quieres escribir en la consola");
-    //console.log(texto);
-
+    
     $('#id_contact_form').on('submit', function() {
-        //var post_url = $("#id_contact_form").data("post-url");
-        var post_url = $._data("#id_contact_form","post-url");
+        let post_url = $("#id_contact_form").data("post-url");
+        const formData = new FormData(this);
+        console.log(post_url, formData);
 
-        var formData = new FormData(this);
-        //for (var pair of formData.entries()) {
-            //alert(pair[0]+ ', ' + pair[1]);
-        //    console.log(pair[0]+ ', ' + pair[1]); 
-        //}
+        /*for (let pair of formData.entries()) {
+            console.log(pair[0]+ ', ' + pair[1]); 
+        }*/
 
         $.ajax({
             url : post_url,
@@ -60,14 +56,11 @@ $(function() {
             processData: false,
             contentType: false,
             success:function(response){
-                //var message = response.content.message
-                //var message = response.name
-                var message = response.content.message
-                //console.log(message); 
+                console.log(response); 
+                let message = response.content.message
                 alert(message);
             },
         });
-
         return false;
     });
 });
