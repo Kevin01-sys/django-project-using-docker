@@ -1,0 +1,35 @@
+{% extends "../base.html" %}
+{% load static %}
+
+{% block title %}Iniciar sesión{% endblock %}
+
+{% block content %}
+<div class="LoginForm">
+    <div class="row">
+      <div class="col-md-4 offset-md-4">
+        <form method="post">
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+                <div class="form-group">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+        {% for field in form.visible_fields %}
+            <div class="form-group">
+                {{ field.label_tag }}
+                {{ field }}
+                {{ field.errors }}
+                <div class="helpText">{{ field.help_text|safe }}</div>
+            </div>
+        {% endfor %}
+            <p>
+                <a href="{% url 'password_reset' %}">Olvidé mi contraseña</a>
+            </p>
+            <button type="submit" class="btn btn-theme">Ingresar</button>
+        </form>          
+      </div>
+    </div>
+</div>
+{% endblock %}

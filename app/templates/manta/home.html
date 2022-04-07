@@ -1,0 +1,75 @@
+{% extends "manta/layout/base.html" %}
+
+{% load widget_tweaks %}
+
+{% block title %}Homepage{% endblock title %}
+
+{% block content %}
+<h1>Django project running.</h1>
+
+<div class="row">
+  <div class="col-md-4 offset-md-4">
+    <form method="post" id="id_contact_form" data-post-url="{% url 'home' %}">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <p>{{ contact_form.name.label }}</p>
+            {% render_field contact_form.name class+="form-control" %}
+            {{ contact_form.name.errors }}
+        </div>
+        <div class="form-group">
+            <p>{{ contact_form.email.label }}</p>
+            {% render_field contact_form.email class+="form-control" %}
+            {{ contact_form.email.errors }}
+        </div>
+        <div class="form-group">
+            <p>{{ contact_form.message.label }}</p>
+            {% render_field contact_form.message class+="form-control" %}
+            {{ contact_form.message.errors }}
+        </div>
+        <div class="actions">
+            <button type="submit" class="btn btn-success">Enviar</button>
+        </div>
+    </form>
+  </div>
+</div>
+
+{% endblock content %}
+{% block js %}
+<script>
+$(function() {
+    'use strict';
+    //var texto;
+    //texto = prompt("Ingresa que quieres escribir en la consola");
+    //console.log(texto);
+
+    $('#id_contact_form').on('submit', function() {
+        //var post_url = $("#id_contact_form").data("post-url");
+        var post_url = $._data("#id_contact_form","post-url");
+
+        var formData = new FormData(this);
+        //for (var pair of formData.entries()) {
+            //alert(pair[0]+ ', ' + pair[1]);
+        //    console.log(pair[0]+ ', ' + pair[1]); 
+        //}
+
+        $.ajax({
+            url : post_url,
+            type: "POST",
+            data : formData,
+            processData: false,
+            contentType: false,
+            success:function(response){
+                //var message = response.content.message
+                //var message = response.name
+                var message = response.content.message
+                //console.log(message); 
+                alert(message);
+            },
+        });
+
+        return false;
+    });
+});
+</script>
+{% endblock %}

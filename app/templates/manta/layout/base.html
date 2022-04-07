@@ -1,6 +1,6 @@
 <!doctype html>
+<!doctype html>
 {% load static %}
-
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -19,6 +19,15 @@
     {% block css %}{% endblock %}
   </head>
   <body>
+    {% if user.is_authenticated %}
+    <ul class="nav justify-content-end">
+        <a class="nav-link" href="#">{{ user }}</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="{% url 'logout' %}">Cerrar sesión</a>
+      </li>
+    </ul>
+    {% endif %}
 
   <!-- Application header or nav-bar -->
 
