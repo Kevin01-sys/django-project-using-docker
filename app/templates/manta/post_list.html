@@ -1,53 +1,15 @@
-{% load static %}
-    <html>
-        <head>
-            <title>Pagina Base</title>
-            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-            <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-            <link rel="stylesheet" href="{% static 'css/blog.css' %}">
-            <!--<link rel="stylesheet" href="{% static 'js/ajax.html' %}">-->
-        </head>
-        <body>
-            <p>Hi there!</p>
-            <p>It works!</p>
-            <li><a href="javascript:clVentana.mostrar('remuneraciones/frpersonal.html')"><i class="fa fa-map-marker"></i> Javier</a></li>
-            <div id="containerRight"> asdfasdf</div>
-            {% block extrajs %}
-                <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-                <script type="text/javascript" src="js/d3.v3.min.js"></script>
-                <script type="text/javascript" src="js/utilities.js"></script>
-                <!--<script src="{% static 'js/ajax.js' %}"></script>-->
-                <script>
+    {% extends 'manta/layout/base.html' %}
 
-                    clVentana = new Ventana();
-                    function Ventana() {
-                        // body...
-
-                        this.mostrar = function(miPagina){
-
-                        //alert('Primer paso');
-
-                      $.ajax({
-                        type: 'POST',
-                        url: "{% url 'post_new' %}",
-                        somedata: 'DASDFAD',
-                        moredata: 'moredata',
-                        csrfmiddlewaretoken: '{{ csrf_token }}',
-                        contentType: 'application/json',
-                        success: function(data)
-                        {
-                          //alert('exito');
-                          document.getElementById("containerRight").innerHTML=data;
-                        },
-                        error: function() {
-                          //alert('fallo');
-                          console.log("No se ha podido obtener la información");
-                        }
-                      });
-                    }
-                    }
-                </script>
-            {% endblock extrajs %}
-        </body>
-    </html>
+    {% block content %}
+    <h1>New post</h1>
+        {% for post in posts %}
+            <div class="post">
+                <div class="date">
+                    {{ post.published_date }}
+                </div>
+                <h1><a href="">{{ post.published_date }}</a></h1>
+                <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+                <p>{{ post.text|linebreaks }}</p>
+            </div>
+        {% endfor %}
+    {% endblock content %}
